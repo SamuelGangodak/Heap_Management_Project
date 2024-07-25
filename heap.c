@@ -39,7 +39,8 @@ void* allocate_memory(size_t mem) {
             printf("Not much continuous space to allocate memory\n\n");
         }
         else if((node->block_size)>req_size) {
-            meta_Data *temp=(void*)(node+req_size);
+            int pointer=req_size/sizeof(meta_Data)+1;
+            meta_Data *temp=(void*)(node+pointer);
             temp->block_size=(node->block_size)-req_size;
             temp->isAllocated=false;
             temp->next=node->next;
@@ -47,7 +48,7 @@ void* allocate_memory(size_t mem) {
                 temp->next->prev=temp;
             }
             temp->prev=node;
-            *(node+req_size)=*temp;
+            // *(node+req_size)=*temp;
             node->block_size=req_size;
             node->next=temp;
             node->isAllocated=true;
