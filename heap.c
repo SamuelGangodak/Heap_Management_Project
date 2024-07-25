@@ -82,7 +82,7 @@ void merge(meta_Data **head) {
 }
 
 void free_memory(void *ptr) {
-    meta_Data* curr=(meta_Data*)((ptr)-sizeof(meta_Data));
+    meta_Data* curr=(meta_Data*)(ptr-sizeof(meta_Data));
     (curr)->isAllocated=false;
     merge(&curr);
     printf("freed\n\n");
